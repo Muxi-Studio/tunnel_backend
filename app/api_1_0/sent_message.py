@@ -3,12 +3,13 @@ from flask import request, jsonify, session
 from ..models import Message as ME
 from flask_mail import Message, Mail
 from .. import app
+import os
 
 app.config['MAIL_SERVER'] = 'smtp.126.com'
 app.config['MAIL_PORT'] = 25
 app.config['MAIL_USE_TLS'] = True
-app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME'] = 'testforflask@126.com'
-app.config['MAIL_PASSWORD'] = 't123654789'
+app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
 
 def msg_dict2(to, subject, body, **kwargs):
@@ -29,6 +30,12 @@ def sent(id):
     token = session.get('token')
     if token == token1:
         mess = ME.query.filter_by(id=id).first()
-        msg_dict2(mess.address, mess.name, mess.content)
-        return jsonify({}), 200
+        if mess.way == 1:
+            try:
+                msg_dict2(mess.address, mess.name, mess.content)
+                return jsonify({}), 200
+            except:
+                return jsonify({}), 500
+        elif mess.way == 2:
+            pass
     return jsonify({}), 404
