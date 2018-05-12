@@ -1,0 +1,283 @@
+swagger: "2.0"
+
+info:
+  version: 0.0.1
+  title:  TStunnel API
+  description: the first edtion API for TStunnel
+  
+schemes: 
+  - http
+host: 120.79.254.77
+basePath: /api
+
+tags:
+- name: "auth"
+  description: 验证权限
+- name: "admin"
+  description: 管理界面
+- name: "user"
+  description: 发送消息
+
+paths:
+
+  /signin/:
+    post:
+      tags:
+      - "auth"
+      summary: 验证登陆
+      description: 虽然不存在用户、管理员，但是进入管理页面需要验证身份，其中验证内容写死。
+        username = "TStunnel", password = "Ilovemuxi"
+      parameters:
+      - name: signin
+        in: body
+        description: 使用已知用户名和密码登陆
+        required: true
+        schema:
+          required:
+            - username
+            - password
+          properties:
+            username:
+              type: string
+            password:
+              type: string
+      responses:
+        200:
+          description: 登陆成功
+          schema:
+            required: 
+              - token
+            properties:
+              token: 
+                type: string
+        401:
+          description: 用户名或密码错误
+        
+    
+  /admin/pages/{pageNumber}/:
+    get:
+      tags: 
+      - "admin"
+      summary: 管理界面
+      description: 显示待操作的消息,每次返回十五条消息
+      parameters: 
+        - in: header
+          name: token
+          description: 表识管理员身份
+          required: true
+          type: string
+        - in: path
+          name: pageNumber
+          description: 需要显示第几页
+          required: true
+          type: integer
+      responses:
+        200:
+          description: 返回待发送的消息
+          schema:
+            type: array
+            items:
+              required: 
+                - id
+                - sent_content
+                - sent_way
+                - sent_name
+                - sent_time
+                - sent_address
+                - sent_status
+              properties:
+                id:
+                  type: integer
+                sent_content:
+                  type: string
+                sent_way:
+                  type: integer
+                sent_name:
+                  type: string
+                sent_time:
+                  type: string
+                sent_address:
+                  type: string
+                sent_status:
+                  type: string
+        403:
+          description: Forbidden
+          
+  /admin/pages/{pageNumber}/time/{time}/:
+    get:
+      tags: 
+      - "admin"
+      summary: 管理界面
+      description: 按时间选择显示待操作的消息，每次返回十五条消息
+      parameters: 
+        - in: header
+          name: token
+          description: 表识管理员身份
+          required: true
+          type: string
+        - in: path
+          name: pageNumber
+          description: 需要显示第几页
+          required: true
+          type: integer
+        - in: path
+          name: time
+          description: 发送的时间
+          required: true
+          type: string
+      responses:
+        200:
+          description: 返回待发送的消息
+          schema:
+            type: array
+            items:
+              required: 
+                - id
+                - sent_content
+                - sent_way
+                - sent_name
+                - sent_time
+                - sent_address
+                - sent_status
+              properties:
+                id:
+                  type: integer
+                sent_content:
+                  type: string
+                sent_way:
+                  type: integer
+                sent_name:
+                  type: string
+                sent_time:
+                  type: string
+                sent_address:
+                  type: string
+                sent_status:
+                  type: string
+        403:
+          description: Forbidden
+
+
+  /admin/massage/{message_id}/:
+    post:
+      tags:
+      - "admin"
+      summary: 单条发送信息或邮件
+      description: 批量发送由前端实现，即批量发送返回多次请求。
+      parameters: 
+      - in: header
+        name: token
+        description: 标识管理员身份
+        required: true
+        type: string
+      - in: path
+        name: message_id
+        description: 所要发送的消息的ID
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+        403:
+          description: Forbidden
+        500:
+          description: server error
+        
+
+  /admin/message/{message_id}/:
+    delete:
+      tags: 
+      - "admin"
+      summary: 删除不和谐的消息
+      description: 如果要实现批量删除，可由发送一样由前端实现
+      parameters: 
+      - in: header
+        name: token
+        description: 标识管理员身份
+        required: true
+        type: string
+      - in: path
+        name: message_id
+        description: 所要删除的消息的ID
+        required: true
+        type: integer
+      responses:
+        200:
+          description: OK
+        403:
+          description: Forbidden
+        500:
+          description: server error
+      
+  /message/:
+    post:
+      tags: 
+      - "user"
+      summary: 用户发送消息
+      description: 用户界面
+      parameters:
+      - name: message
+        in: body
+        description: 消息全部内容
+        required: true
+        schema:
+          required: 
+            - sent_content
+            - sent_way
+            - sent_name
+            - sent_time 
+            - sent_address
+          properties:
+            sent_content:
+              type: string
+            sent_way:
+              type: integer
+            sent_name:
+              type: string
+            sent_time:
+              type: string    
+            sent_address:
+              type: string
+      
+      responses:
+        200:
+          description: OK
+        500:
+          description: server error
+        400:
+          description: Bad Request
+        
+        
+
+definitions:
+  Message:
+    required: 
+      - id
+      - sent_content
+      - sent_way
+      - sent_name
+      - sent_time  
+      - sent_address
+      - sent_status
+    properties:
+      id:
+        description: 消息ID
+        type: integer
+      sent_content:
+        description: 消息内容
+        type: string
+      sent_way:
+        description: 发送方式,1:短信，2:邮箱。
+        type: integer
+      sent_name:
+        description: 发送者的名字
+        type: string
+      sent_time:
+        description: 发送时间   格式：year-month-day  例：2018-05-01
+        type: string
+      sent_address:
+        description: 发送地址
+        type: string
+      sent_status:
+        description: 发送状态，1：未发送，2:已发送，3：发送失败
+        type: integer
