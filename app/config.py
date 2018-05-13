@@ -23,3 +23,13 @@ SQLALCHEMY_COMMIT_ON_TEARDOWN = True
 SQLALCHEMY_RECORD_QUERIES = True
 SQLALCHEMY_TRACK_MODIFICATIONS = True
 
+
+class TestingConfig():
+    TESTING = True
+    SQLALCHEMY_DATABASE_URI = os.environ.get('TEST_DATABASE_URL') or \
+        'sqlite://'
+
+
+config = {
+    'testing': TestingConfig,
+}

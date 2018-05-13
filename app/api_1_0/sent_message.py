@@ -12,9 +12,9 @@ app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
+mails = Mail(app)
 
 def msg_dict2(to, subject, body, **kwargs):
-    mails = Mail(app)
     msg = Message(
         subject='come from ' + subject,
         sender=app.config['MAIL_DEFAULT_SENDER'],
@@ -22,7 +22,13 @@ def msg_dict2(to, subject, body, **kwargs):
     )
     msg.body = body
     msg.html = body
-    mails.send(msg)
+    return msg.__dict__
+
+def send_async_email(msg_dict):
+    with app.app_context():
+        msg = Message()
+        msg.__dict__.update(msg_dict)
+        mails.send(msg)
 
 
 @api.route('/sent/<int:id>/', methods=['POST'])
@@ -33,7 +39,7 @@ def sent(id):
         mess = ME.query.filter_by(id=id).first()
         if mess.way == 1:
             try:
-                msg_dict2(mess.address, mess.name, mess.content)
+                send_async_email(msg_dict2(mess.address, mess.name, mess.content))
                 return jsonify({}), 200
             except:
                 return jsonify({}), 500

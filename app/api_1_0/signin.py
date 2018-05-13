@@ -15,7 +15,8 @@ def signin():
     s = Serializer(config.SECRET_KEY, expires_in=1800)
     token = s.dumps( {'id': 1})
     session['token'] = token
-    if username==os.environ.get('USERNAME') and password== os.environ.get('PASSWORD'):
+    print os.environ.get('USERNAME'), os.environ.get('PASSWORD')
+    if username == os.environ.get('USERNAME') and password == os.environ.get('PASSWORD'):
         return jsonify({
             "token": token
         }), 200
