@@ -21,6 +21,7 @@ def msg_dict2(to, subject, body, **kwargs):
     )
     msg.body = body
     msg.html = body
+    print body
     mails.send(msg)
 
 
