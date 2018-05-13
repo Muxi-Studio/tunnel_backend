@@ -5,8 +5,8 @@ from flask_mail import Message, Mail
 from .. import app
 import os
 
-app.config['MAIL_SERVER'] = 'smtp.126.com'
-app.config['MAIL_PORT'] = 25
+app.config['MAIL_SERVER'] = 'smtp.exmail.qq.com'
+app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
 app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
