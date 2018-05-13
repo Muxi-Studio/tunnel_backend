@@ -1,4 +1,5 @@
 #encoding: utf-8
+import os
 
 DEBUG = True    #debug模式
 
@@ -6,7 +7,7 @@ DEBUG = True    #debug模式
 DIALECT = 'mysql'
 DRIVER = 'mysqldb'
 USERNAME = 'root'
-PASSWORD = 'tam'
+PASSWORD = os.environ.get('msqlpassword')
 HOST = '127.0.0.1'
 PORT = '3306'
 DATABASE = 'db_tunnel'
