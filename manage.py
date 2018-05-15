@@ -22,6 +22,10 @@ migrate = Migrate(app, db)
 #把MigrateCommand命令添加到manager中
 manager.add_command('db', MigrateCommand)
 
+@manager.command
+def createdb():
+    db.create_all()
+
 
 @manager.command
 def test():

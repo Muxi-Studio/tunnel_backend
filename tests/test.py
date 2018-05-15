@@ -2,11 +2,17 @@ import unittest
 from flask import current_app, url_for,jsonify
 from flask_sqlalchemy import SQLAlchemy
 import random
+from app.models import Message
+from app import create_app
 import json
-class BasicTestCase(unittest.TestCase):
+import os
 
+db = SQLAlchemy()
+
+
+class BasicTestCase(unittest.TestCase):
     def setUp(self):
-        self.app = create_app()
+        self.app = create_app('testing')
         self.app_context = self.app.app_context()
         self.app_context.push()
         self.client = self.app.test_client()
