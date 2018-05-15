@@ -2,7 +2,7 @@ from . import api
 from flask import request, jsonify, session
 from ..models import Message as ME
 from flask_mail import Message, Mail
-from .. import app
+from .. import app, db
 import os
 
 app.config['MAIL_SERVER'] = 'smtp.exmail.qq.com'
@@ -40,8 +40,14 @@ def sent(id):
         if mess.way == 1:
             try:
                 send_async_email(msg_dict2(mess.address, mess.name, mess.content))
+                mess.status = 2
+                db.session.add(mess)
+                db.session.commit()
                 return jsonify({}), 200
             except:
+                mess.status = 2
+                db.session.add(mess)
+                db.session.commit()
                 return jsonify({}), 500
         elif mess.way == 2:
             pass

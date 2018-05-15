@@ -6,7 +6,7 @@ from ..models import Message
 
 
 @api.route('/admin/message/<id>/', methods=['DELETE'])
-def hello(id):
+def delete(id):
     token = request.headers['token']
     token1 = session.get('token')
     if token1 == token:
