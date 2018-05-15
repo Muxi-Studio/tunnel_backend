@@ -1,9 +1,8 @@
 # encoding: utf-8
-from flask import Flask, request, jsonify, session
-import json
+from flask import request, jsonify, session
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 from . import api
-from .. import config
+from config import config
 import os
 
 
@@ -12,10 +11,10 @@ def signin():
     username = request.values.get("username")
     password = request.values.get("password")
 
-    s = Serializer(config.SECRET_KEY, expires_in=1800)
-    token = s.dumps( {'id': 1})
+    s = Serializer(config["developments"].SECRET_KEY, expires_in=1800)
+    token = s.dumps({'id': 1})
     session['token'] = token
-    if username == os.environ.get('USERNAME') and password == os.environ.get('PASSWORD'):
+    if username == 'TStunnel' and password == 'Ilovemuxi':
         return jsonify({
             "token": token
         }), 200

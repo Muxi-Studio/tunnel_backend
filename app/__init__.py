@@ -7,14 +7,21 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
 
 
-mail = Mail()
-app = Flask(__name__)
-app.config.from_object(config)
-db = SQLAlchemy(app)
+DIALECT = 'mysql'
+DRIVER = 'mysqldb'
+USERNAME = 'root'
+PASSWORD = 'root'
+HOST = '127.0.0.1'
+PORT = '3306'
+DATABASE = 'db_tunnel'
+DATABASETest = 'ts'
 
 
 
-def create_app(config_name=None):
+db = SQLAlchemy()
+
+
+def create_app(config_name=None, main=True):
     if config_name is None:
         config_name = 'default'
     app = Flask(__name__)
@@ -23,13 +30,19 @@ def create_app(config_name=None):
 
     with app.app_context():
         db.init_app(app)
-    mail.init_app(app)
     db.init_app(app)
+
+    app.config['SQLALCHEMY_DATABASE_URI'] = "{}+{}://{}:{}@{}:{}/{}?charset=utf8".format(DIALECT,
+                                                                           DRIVER, USERNAME, PASSWORD, HOST, PORT,
+                                                                           DATABASE)
 
     from .main import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
     return app
+
+app = create_app(config_name = 'default')
+mails = Mail(app)
 
 
 from .api_1_0 import api

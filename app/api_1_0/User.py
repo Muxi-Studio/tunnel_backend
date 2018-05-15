@@ -1,7 +1,7 @@
 #encoding: utf-8
 from . import api
 from ..models import Message
-from flask import request, jsonify, session
+from flask import request, jsonify
 from app import db
 
 @api.route('/message/', methods=['POST'])

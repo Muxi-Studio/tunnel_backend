@@ -4,17 +4,17 @@ import os
 DIALECT = 'mysql'
 DRIVER = 'mysqldb'
 USERNAME = 'root'
-PASSWORD = os.environ.get('mysqlpassword')
+PASSWORD = 'root'
 HOST = '127.0.0.1'
 PORT = '3306'
 DATABASE = 'db_tunnel'
 DATABASETest = 'ts'
 
 
-
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard ot guess string'
-    SQLALCHEMY_COMMIT_ON_TEARDOWN=True
+    SESSION_TYPE = 'filesystem'
+    SQLALCHEMY_COMMIT_ON_TEARDOWN = True
     SQLALCHEMY_RECORD_QUERIES = True
     SQLALCHEMY_TRACK_MODIFICATIONS = True
 
