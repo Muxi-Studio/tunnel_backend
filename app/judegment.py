@@ -187,18 +187,18 @@ if __name__ == "__main__":
     files = os.listdir(API_Floder)
 
     # new Open Test File
-    if os.path.isdir("testByJudgement"):
+    if os.path.isdir("tests"):
         pass
     else:
-        os.mkdir("testByJudgement")
+        os.mkdir("tests")
 
-    if os.path.isfile("testByJudgement/test.py"):
+    if os.path.isfile("tests/test.py"):
         pass
     else:
-        with open("testByJudgement/test.py", "w+") as f:
+        with open("tests/test.py", "w+") as f:
             f.close()
 
-    ftest = open("./testByJudgement/test.py", "w+")
+    ftest = open("./tests/test.py", "w+")
     # End Open Test File
     apis = []
     for i in range(len(files)):
