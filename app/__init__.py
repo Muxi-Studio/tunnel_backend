@@ -5,12 +5,13 @@ from flask_mail import Mail
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
+import os
 
 
 DIALECT = 'mysql'
 DRIVER = 'mysqldb'
 USERNAME = 'root'
-PASSWORD = 'root'
+PASSWORD = os.environ.get('mysqlpassword')
 HOST = '127.0.0.1'
 PORT = '3306'
 DATABASE = 'db_tunnel'

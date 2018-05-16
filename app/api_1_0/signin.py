@@ -14,7 +14,7 @@ def signin():
     s = Serializer(config["developments"].SECRET_KEY, expires_in=1800)
     token = s.dumps({'id': 1})
     session['token'] = token
-    if username == 'TStunnel' and password == 'Ilovemuxi':
+    if username == os.environ.get('USERNAME') and password == os.environ.get('PASSWORD'):
         return jsonify({
             "token": token
         }), 200

@@ -10,7 +10,6 @@ import os
 db = SQLAlchemy()
 token = str(0)
 
-
 class BasicTestCase(unittest.TestCase):
     def setUp(self):
         self.app = create_app('testing')
@@ -46,14 +45,15 @@ class BasicTestCase(unittest.TestCase):
     #Test message
     def test_c_message(self):
         response = self.client.post(
-            url_for('api.message'),
-            data = {
+            url_for('api.message',_external=True),
+            data = json.dumps({
                 "sent_content": "this is content of the eamil",
                 "sent_way": 1,
                 "sent_name": "darren",
                 "sent_time": "sent_time1",
                 "sent_address": "17362990052@163.com"
-            })
+            }),
+            content_type='application/json')
         self.assertTrue(response.status_code == 200)
 
 
@@ -62,11 +62,12 @@ class BasicTestCase(unittest.TestCase):
     #Test signin
     def test_b_signin(self):
         response = self.client.post(
-            url_for('api.signin'),
-            data = {
+            url_for('api.signin',_external=True),
+            data = json.dumps({
                 "username": "TStunnel",
                 "password": "Ilovemuxi"
-            })
+            }),
+            content_type = 'application/json')
         self.assertTrue(response.status_code == 200)
 
 
