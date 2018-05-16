@@ -37,7 +37,7 @@ def sent(id):
     token = session.get('token')
     if token == token1:
         mess = ME.query.filter_by(id=id).first()
-        if mess.way == 1:
+        if mess.way == 2:
             try:
                 send_async_email(msg_dict2(mess.address, mess.name, mess.content))
                 mess.status = 2
@@ -49,6 +49,6 @@ def sent(id):
                 db.session.add(mess)
                 db.session.commit()
                 return jsonify({}), 500
-        elif mess.way == 2:
+        elif mess.way == 1:
             pass
     return jsonify({}), 404
