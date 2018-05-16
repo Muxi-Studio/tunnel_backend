@@ -80,7 +80,6 @@ paths:
               required: 
                 - id
                 - sent_content
-                - sent_way
                 - sent_name
                 - sent_time
                 - sent_address
@@ -90,8 +89,6 @@ paths:
                   type: integer
                 sent_content:
                   type: string
-                sent_way:
-                  type: integer
                 sent_name:
                   type: string
                 sent_time:
@@ -134,7 +131,6 @@ paths:
               required: 
                 - id
                 - sent_content
-                - sent_way
                 - sent_name
                 - sent_time
                 - sent_address
@@ -144,8 +140,6 @@ paths:
                   type: integer
                 sent_content:
                   type: string
-                sent_way:
-                  type: integer
                 sent_name:
                   type: string
                 sent_time:
@@ -223,15 +217,12 @@ paths:
         schema:
           required: 
             - sent_content
-            - sent_way
             - sent_name
             - sent_time 
             - sent_address
           properties:
             sent_content:
               type: string
-            sent_way:
-              type: integer
             sent_name:
               type: string
             sent_time:
@@ -267,7 +258,7 @@ definitions:
         description: 消息内容
         type: string
       sent_way:
-        description: 发送方式,1:短信，2:邮箱。
+        description: 发送方式,1:短信，2:邮箱。emmmm.....没钱，默认2
         type: integer
       sent_name:
         description: 发送者的名字
