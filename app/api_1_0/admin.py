@@ -25,14 +25,12 @@ def pages(pageNumber):
             mes = Message.query.filter_by(id=m).first()
             id = mes.id
             content = mes.content
-            way = mes.way
             name = mes.name
             time = mes.time
             address = mes.address
             status = mes.status
             messagelist.append({"id": id,
                             "sent_content": content,
-                            "sent_way": way,
                             "sent_name": name,
                             "sent_time": time,
                             "sent_address": address,
@@ -69,14 +67,12 @@ def time_page(pageNumber, time):
             mes = Message.query.filter_by(id=m).first()
             id = mes.id
             content = mes.content
-            way = mes.way
             name = mes.name
             time = mes.time
             address = mes.address
             status = mes.status
             messagelist.append({"id": id,
                                 "sent_content": content,
-                                "sent_way": way,
                                 "sent_name": name,
                                 "sent_time": time,
                                 "sent_address": address,

@@ -45,7 +45,7 @@ def sent(id):
                 db.session.commit()
                 return jsonify({}), 200
             except:
-                mess.status = 2
+                mess.status = 3
                 db.session.add(mess)
                 db.session.commit()
                 return jsonify({}), 500
