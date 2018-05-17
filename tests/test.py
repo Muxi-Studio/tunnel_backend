@@ -25,6 +25,9 @@ class BasicTestCase(unittest.TestCase):
         self.client = self.app.test_client()
         db.create_all()
 
+        from app.api_1_0 import api
+        self.app.register_blueprint(api, url_prefix='/api')
+
     def tearDown(self):
         db.session.remove()
         db.drop_all()
