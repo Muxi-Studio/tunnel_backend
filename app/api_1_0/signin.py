@@ -8,8 +8,8 @@ import os
 
 @api.route('/signin/', methods=['POST'])
 def signin():
-    username = request.values.get("username")
-    password = request.values.get("password")
+    username = request.get_json().get("username")
+    password = request.get_json().get("password")
 
     s = Serializer(config["developments"].SECRET_KEY, expires_in=1800)
     token = s.dumps({'id': 1})
