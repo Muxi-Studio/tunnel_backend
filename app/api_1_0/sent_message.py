@@ -5,7 +5,7 @@ from flask_mail import Message, Mail
 from .. import app, db
 import os
 
-app.config['MAIL_SERVER'] = 'smtp.exmail.qq.com'
+app.config['MAIL_SERVER'] = 'smtp.163.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True

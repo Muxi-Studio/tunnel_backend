@@ -1,5 +1,7 @@
+# encoding:utf-8
+import base64
 import unittest
-from flask import current_app, url_for,jsonify
+from flask import current_app, url_for, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import random
 from app.models import Message
@@ -8,7 +10,12 @@ import json
 import os
 
 db = SQLAlchemy()
+
 token = str(0)
+id = int(0)
+pageNumber = int(0)
+time = str(0)
+
 
 class BasicTestCase(unittest.TestCase):
     def setUp(self):
@@ -26,29 +33,44 @@ class BasicTestCase(unittest.TestCase):
     def test_app_exist(self):
         self.assertFalse(current_app is None)
 
+    # ----------API FILE NAME:api_1_0/signin.py-------------------
 
-    #----------API FILE NAME:api_1_0/delete.py-------------------
-
-    #Test delete
-    def test_c_delete(self):
-        response = self.client.delete(
-            url_for('api.delete',_external=True),
+    # Test signin
+    def test_a_signin(self):
+        response = self.client.post(
+            url_for('api.signin', _external=True),
             data=json.dumps({
-                "id": 3
+                "username": "TStunnel",
+                "password": "Ilovemuxi"
             }),
-            content_type = 'application/json')
+            content_type='application/json')
+        s = json.loads(response.data)['token']
+        global token
+        token = s
+        global b64token
+        b64token = str(base64.b64encode(token))
         self.assertTrue(response.status_code == 200)
 
+    # ----------API FILE NAME:api_1_0/delete.py-------------------
 
-    #----------API FILE NAME:api_1_0/User.py-------------------
+    # Test delete
+    def test_c_delete(self):
+        response = self.client.delete(
+            url_for('api.delete', id=1, _external=True),
+            headers={
+                "token": b64token,
+            },
+            content_type='application/json')
+        self.assertTrue(response.status_code == 200)
 
-    #Test message
-    def test_c_message(self):
+    # ----------API FILE NAME:api_1_0/User.py-------------------
+
+    # Test message
+    def test_a_message(self):
         response = self.client.post(
-            url_for('api.message',_external=True),
-            data = json.dumps({
+            url_for('api.message', _external=True),
+            data=json.dumps({
                 "sent_content": "this is content of the eamil",
-                "sent_way": 1,
                 "sent_name": "darren",
                 "sent_time": "sent_time1",
                 "sent_address": "17362990052@163.com"
@@ -56,57 +78,38 @@ class BasicTestCase(unittest.TestCase):
             content_type='application/json')
         self.assertTrue(response.status_code == 200)
 
+    # ----------API FILE NAME:api_1_0/__init__.py-------------------
 
-    #----------API FILE NAME:api_1_0/signin.py-------------------
+    # ----------API FILE NAME:api_1_0/admin.py-------------------
 
-    #Test signin
-    def test_b_signin(self):
-        response = self.client.post(
-            url_for('api.signin',_external=True),
-            data = json.dumps({
-                "username": "TStunnel",
-                "password": "Ilovemuxi"
-            }),
-            content_type = 'application/json')
-        self.assertTrue(response.status_code == 200)
-
-
-    #----------API FILE NAME:api_1_0/__init__.py-------------------
-
-
-    #----------API FILE NAME:api_1_0/admin.py-------------------
-
-    #Test pages
+    # Test pages
     def test_c_pages(self):
         response = self.client.get(
-            url_for('api.pages', _external=True),
-            data = json.dumps({
-                "pageNumber": 1
-            }),
+            url_for('api.pages', pageNumber=1, _external=True),
+            headers={
+                "token": b64token,
+            },
             content_type='application/json')
         self.assertTrue(response.status_code == 200)
 
-    #Test time_page
+    # Test time_page
     def test_c_time_page(self):
         response = self.client.get(
-            url_for('api.time_page',_external=True),
-            data = json.dumps({
-                "pageNumber":1,
-                "sent_time":"sent_time1"
-            }),
-            content_type = 'application/json')
+            url_for('api.time_page', pageNumber=1, sent_time='sent_time1', _external=True),
+            headers={
+                "token": b64token,
+            },
+            content_type='application/json')
         self.assertTrue(response.status_code == 200)
 
+    # ----------API FILE NAME:api_1_0/sent_message.py-------------------
 
-    #----------API FILE NAME:api_1_0/sent_message.py-------------------
-
-    #Test sent
+    # Test sent
     def test_c_sent(self):
         response = self.client.post(
-            url_for('api.sent',_external=True),
-            data = json.dumps({
-                "id":1
-            }),
-            content_type = 'application/json')
+            url_for('api.sent', id=1, _external=True),
+            headers={
+                "token": b64token,
+            },
+            content_type='application/json')
         self.assertTrue(response.status_code == 200)
-
