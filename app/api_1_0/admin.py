@@ -2,12 +2,26 @@
 from . import api
 from flask import request, jsonify, session, current_app
 from ..models import Message
+from config import config
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
+
+
+def confirm(token):
+    s = Serializer(current_app.config['SECRET_KEY'])
+    try:
+        data = s.loads(token)
+    except:
+        return False
+    if data.get('id') != 1:
+        return False
+    return True
 
 @api.route('/admin/pages/<int:pageNumber>/', methods=['GET'])
 def pages(pageNumber):
     token = request.headers['token']
-    if session.get('token') == token:
-    #if confirm(token):
+    #if session.get('token') == token:
+    if confirm(token):
         messagelist = []
         all_mess = []
         message = Message.query.all()
