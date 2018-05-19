@@ -1,6 +1,6 @@
 #encoding: utf-8
 from . import api
-from flask import request, jsonify, session
+from flask import request, jsonify, session, current_app
 from app import db
 from ..models import Message
 from config import config

@@ -1,5 +1,5 @@
 from . import api
-from flask import request, jsonify, session
+from flask import request, jsonify, session, current_app
 from ..models import Message as ME
 from flask_mail import Message, Mail
 from .. import app, db

@@ -50,8 +50,6 @@ class BasicTestCase(unittest.TestCase):
         s = json.loads(response.data)['token']
         global token
         token = s
-        global b64token
-        b64token = str(base64.b64encode(token))
         self.assertTrue(response.status_code == 200)
 
     # ----------API FILE NAME:api_1_0/delete.py-------------------
@@ -61,7 +59,7 @@ class BasicTestCase(unittest.TestCase):
         response = self.client.delete(
             url_for('api.delete', id=1, _external=True),
             headers={
-                "token": b64token,
+                "token": token,
             },
             content_type='application/json')
         self.assertTrue(response.status_code == 200)
@@ -90,7 +88,7 @@ class BasicTestCase(unittest.TestCase):
         response = self.client.get(
             url_for('api.pages', pageNumber=1, _external=True),
             headers={
-                "token": b64token,
+                "token": token,
             },
             content_type='application/json')
         self.assertTrue(response.status_code == 200)
@@ -98,9 +96,9 @@ class BasicTestCase(unittest.TestCase):
     # Test time_page
     def test_c_time_page(self):
         response = self.client.get(
-            url_for('api.time_page', pageNumber=1, sent_time='sent_time1', _external=True),
+            url_for('api.time_page', pageNumber=1, time='sent_time1', _external=True),
             headers={
-                "token": b64token,
+                "token": token,
             },
             content_type='application/json')
         self.assertTrue(response.status_code == 200)
@@ -112,7 +110,7 @@ class BasicTestCase(unittest.TestCase):
         response = self.client.post(
             url_for('api.sent', id=1, _external=True),
             headers={
-                "token": b64token,
+                "token": token,
             },
             content_type='application/json')
         self.assertTrue(response.status_code == 200)
