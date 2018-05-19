@@ -63,7 +63,8 @@ def pages(pageNumber):
 @api.route('/admin/pages/<int:pageNumber>/time/<string:time>/', methods=['GET'])
 def time_page(pageNumber, time):
     token = request.headers['token']
-    if session.get('token') == token:
+    #if session.get('token') == token:
+    if confirm(token):
         messagelist = []
         all_mess = []
         message = Message.query.all()

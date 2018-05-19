@@ -1,6 +1,19 @@
 # encoding: utf-8
 from . import db
+from config import config
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
 
+
+
+def confirm(token):
+    s = Serializer(current_app.config['SECRET_KEY'])
+    try:
+        data = s.loads(token)
+    except:
+        return False
+    if data.get('id') != 1:
+        return False
+    return True
 
 class Message(db.Model):
     __tablename__ = 'message'

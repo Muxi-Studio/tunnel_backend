@@ -4,6 +4,20 @@ from ..models import Message as ME
 from flask_mail import Message, Mail
 from .. import app, db
 import os
+from config import config
+from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
+
+
+
+def confirm(token):
+    s = Serializer(current_app.config['SECRET_KEY'])
+    try:
+        data = s.loads(token)
+    except:
+        return False
+    if data.get('id') != 1:
+        return False
+    return True
 
 app.config['MAIL_SERVER'] = 'smtp.163.com'
 app.config['MAIL_PORT'] = 465
@@ -33,9 +47,10 @@ def send_async_email(msg_dict):
 
 @api.route('/sent/<int:id>/', methods=['POST'])
 def sent(id):
-    token1 = request.headers['token']
-    token = session.get('token')
-    if token == token1:
+    token = request.headers['token']
+    #token1 = session.get('token')
+    #if token == token1:
+    if confirm(token):
         mess = ME.query.filter_by(id=id).first()
         if mess.way == 2:
             try:
