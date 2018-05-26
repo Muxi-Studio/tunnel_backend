@@ -1,0 +1,72 @@
+nohup: ignoring input
+ * Serving Flask app "app" (lazy loading)
+ * Environment: production
+   WARNING: Do not use the development server in a production environment.
+   Use a production WSGI server instead.
+ * Debug mode: off
+ * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+119.98.169.228 - - [27/May/2018 04:17:02] "POST /api/signin/ HTTP/1.1" 200 -
+119.98.169.228 - - [27/May/2018 04:17:58] "POST /api/sent/11/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:18:15] "POST /api/sent/11/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:18:29] "POST /api/sent/11/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:18:47] "GET /api/admin/pages/1/ HTTP/1.1" 200 -
+119.98.169.228 - - [27/May/2018 04:19:13] "POST /api/sent/11/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:19:40] "POST /api/sent/77/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:21:53] "POST /api/sent/77/ HTTP/1.1" 500 -
+[2018-05-27 04:22:23,302] ERROR in app: Exception on /api/signin/ [POST]
+Traceback (most recent call last):
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/programe/mproject_tunnel/app/api_1_0/signin.py", line 11, in signin
+    username = request.get_json().get("username")
+AttributeError: 'NoneType' object has no attribute 'get'
+119.98.169.228 - - [27/May/2018 04:22:23] "POST /api/signin/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:22:39] "GET /api/admin/pages/1/ HTTP/1.1" 200 -
+[2018-05-27 04:23:09,209] ERROR in app: Exception on /api/signin/ [POST]
+Traceback (most recent call last):
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/programe/mproject_tunnel/app/api_1_0/signin.py", line 11, in signin
+    username = request.get_json().get("username")
+AttributeError: 'NoneType' object has no attribute 'get'
+119.98.169.228 - - [27/May/2018 04:23:09] "POST /api/signin/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:24:00] "GET /api/admin/pages/1/ HTTP/1.1" 200 -
+119.98.169.228 - - [27/May/2018 04:24:06] "POST /api/sent/77/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:24:08] "POST /api/sent/77/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:24:09] "POST /api/sent/77/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:24:10] "POST /api/sent/77/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:24:10] "POST /api/sent/77/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:24:10] "POST /api/sent/77/ HTTP/1.1" 500 -
+119.98.169.228 - - [27/May/2018 04:24:11] "POST /api/sent/77/ HTTP/1.1" 500 -
+[2018-05-27 04:24:47,279] ERROR in app: Exception on /api/signin/ [POST]
+Traceback (most recent call last):
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 2292, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1815, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1718, in handle_user_exception
+    reraise(exc_type, exc_value, tb)
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1813, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/root/programe/mproject_tunnel/venv/local/lib/python2.7/site-packages/flask/app.py", line 1799, in dispatch_request
+    return self.view_functions[rule.endpoint](**req.view_args)
+  File "/root/programe/mproject_tunnel/app/api_1_0/signin.py", line 11, in signin
+    username = request.get_json().get("username")
+AttributeError: 'NoneType' object has no attribute 'get'
+119.98.169.228 - - [27/May/2018 04:24:47] "POST /api/signin/ HTTP/1.1" 500 -

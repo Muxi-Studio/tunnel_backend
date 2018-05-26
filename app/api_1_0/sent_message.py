@@ -36,6 +36,8 @@ def msg_dict2(to, subject, body, **kwargs):
     )
     msg.body = body
     msg.html = body
+    with app.open_resource("/tmp/78.jpg","rb") as fp:
+        msg.attach("image.jpg", "image/jpg", fp.read())
     return msg.__dict__
 
 def send_async_email(msg_dict):
