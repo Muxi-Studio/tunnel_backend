@@ -244,6 +244,34 @@ paths:
         400:
           description: Bad Request
         
+  /file/:
+    post:
+      tags: 
+      - "user"
+      summary: 用户发送附件
+      description: 这个URL一定要在/message/之后立即使用，因为每次只能传文本或者文件，所以用户的内容分两次传输。
+      parameters:
+      - name: file
+        in: body
+        description: 附件有图片和声音两种格式，分别为jpg、wav
+        required: true
+        schema:
+          required: 
+            - soundfile
+            - picturefile
+          properties:
+            soundfile:
+              type: file
+            picturefile:
+              type: file
+      
+      responses:
+        200:
+          description: OK
+        500:
+          description: server error
+        400:
+          description: Bad Request
         
 
 definitions:
