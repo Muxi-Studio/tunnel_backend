@@ -36,8 +36,10 @@ def msg_dict2(to, subject, body, **kwargs):
     )
     msg.body = body
     msg.html = body
-    with app.open_resource("/tmp/78.jpg","rb") as fp:
+    with app.open_resource("/tmp/" + id + ".jpg","rb") as fp:
         msg.attach("image.jpg", "image/jpg", fp.read())
+    with app.open_resource("/tmp/" + id + ".wav","rb") as fp:
+        msg.attach("voice.wav", "mp3/wav", fp.read())
     return msg.__dict__
 
 def send_async_email(msg_dict):
@@ -52,6 +54,7 @@ def sent(id):
     token = request.headers['token']
     #token1 = session.get('token')
     #if token == token1:
+    global id
     if confirm(token):
         mess = ME.query.filter_by(id=id).first()
         if mess.way == 2:
