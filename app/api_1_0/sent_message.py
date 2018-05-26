@@ -36,10 +36,13 @@ def msg_dict2(to, subject, body, **kwargs):
     )
     msg.body = body
     msg.html = body
-    with app.open_resource("/tmp/" + ID + ".jpg","rb") as fp:
-        msg.attach("image.jpg", "image/jpg", fp.read())
-    with app.open_resource("/tmp/" + ID + ".wav","rb") as fp:
-        msg.attach("voice.wav", "mp3/wav", fp.read())
+    try:
+        with app.open_resource("/tmp/" + ID + ".jpg","rb") as fp:
+            msg.attach("image.jpg", "image/jpg", fp.read())
+        with app.open_resource("/tmp/" + ID + ".wav","rb") as fp:
+            msg.attach("voice.wav", "mp3/wav", fp.read())
+    except:
+        pass
     return msg.__dict__
 
 def send_async_email(msg_dict):
