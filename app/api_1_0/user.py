@@ -33,8 +33,8 @@ def files():
         num = len(message)
         soufile = request.files['soundfile']
         picfile = request.files['picturefile']
-        soufile.save('/tmp/'+str(num + 1) + '.wav')
-        picfile.save('/tmp/'+str(num + 1) + '.jpg')
+        soufile.save('/tmp/'+str(num) + '.wav')
+        picfile.save('/tmp/'+str(num) + '.jpg')
         return jsonify({
         }), 200
     except:
