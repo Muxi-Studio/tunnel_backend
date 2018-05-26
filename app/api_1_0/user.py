@@ -10,15 +10,7 @@ def message():
     sent_name = request.get_json().get('sent_name')
     sent_time = request.get_json().get('sent_time')
     sent_address = request.get_json().get('sent_address')
-    try:
-        message = Message.query.all()
-        num = len(message)
-        soufile = readdquest.files['soundfile']
-        picfile = request.files['picturefile']
-        soufile.save('/tmp/'+str(num + 1) + '.wav')
-        picfile.save('/tmp/'+str(num + 1) + '.jpg')
-    except:
-        pass
+
     message = Message(content=sent_content,
                       way=2,
                       name=sent_name,
@@ -28,6 +20,21 @@ def message():
     try:
         db.session.add(message)
         db.session.commit()
+        return jsonify({
+        }), 200
+    except:
+        return jsonify({
+        }), 500
+
+@api.route('/file/', methods=['POST'])
+def files():
+    try:
+        message = Message.query.all()
+        num = len(message)
+        soufile = request.files['soundfile']
+        picfile = request.files['picturefile']
+        soufile.save('/tmp/'+str(num + 1) + '.wav')
+        picfile.save('/tmp/'+str(num + 1) + '.jpg')
         return jsonify({
         }), 200
     except:

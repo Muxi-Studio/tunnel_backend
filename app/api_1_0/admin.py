@@ -21,7 +21,7 @@ def confirm(token):
 def pages(pageNumber):
     token = request.headers['token']
     #if session.get('token') == token:
-    if 1:
+    if confirm(token):
         messagelist = []
         all_mess = []
         message = Message.query.all()
