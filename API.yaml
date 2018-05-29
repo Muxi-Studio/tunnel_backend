@@ -152,7 +152,7 @@ paths:
           description: Forbidden
 
 
-  /admin/massage/{message_id}/:
+  /sent/{message_id}/:
     post:
       tags:
       - "admin"
