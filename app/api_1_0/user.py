@@ -23,7 +23,7 @@ def message():
         db.session.add(message)
         db.session.commit()
         return jsonify({
-        }), 200
+        }), 201
     except:
         return jsonify({
         }), 500
@@ -38,7 +38,7 @@ def files():
         soufile.save('/tmp/'+str(num) + '.wav')
         picfile.save('/tmp/'+str(num) + '.jpg')
         return jsonify({
-        }), 200
+        }), 201
     except:
         return jsonify({
         }), 500

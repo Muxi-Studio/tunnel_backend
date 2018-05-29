@@ -237,7 +237,7 @@ paths:
               type: file
       
       responses:
-        200:
+        201:
           description: OK
         500:
           description: server error
