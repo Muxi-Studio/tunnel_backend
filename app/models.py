@@ -21,7 +21,7 @@ class Message(db.Model):
     content = db.Column(db.Text, nullable=False)
     time = db.Column(db.String(15), nullable=False)
     way = db.Column(db.Integer, nullable=False)
-    name = db.Column(db.String(20), nullable=False)
+    name = db.Column(db.String(20), nullable=True)
     status = db.Column(db.Integer, nullable=False)
     address = db.Column(db.String(40), nullable=False)
 
