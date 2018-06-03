@@ -19,7 +19,7 @@ def confirm(token):
         return False
     return True
 
-app.config['MAIL_SERVER'] = 'smtp.163.com'
+app.config['MAIL_SERVER'] = 'smtp.qq.com'
 app.config['MAIL_PORT'] = 465
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
@@ -70,7 +70,8 @@ def sent(id):
                 db.session.add(mess)
                 db.session.commit()
                 return jsonify({}), 200
-            except:
+            except Exception,e:
+                print(e)
                 mess.status = 3
                 db.session.add(mess)
                 db.session.commit()
