@@ -15,6 +15,9 @@ update  生成新的表
 '''
 
 
+print os.environ.get('MYSQLUSER')
+print os.environ.get('MYSQLHOST')
+
 #使用flask_migrate必须绑定app和db
 migrate = Migrate(app, db)
 

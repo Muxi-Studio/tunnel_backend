@@ -3,11 +3,11 @@ import os
 
 DIALECT = 'mysql'
 DRIVER = 'mysqldb'
-USERNAME = 'root'
-PASSWORD = os.environ.get('mysqlpassword')
-HOST = '127.0.0.1'
+USERNAME = os.environ.get('MYSQLUSER')
+PASSWORD = os.environ.get('MYSQLPASSWORD')
+HOST = os.environ.get('MYSQLHOST')
 PORT = '3306'
-DATABASE = 'db_tunnel'
+DATABASE = 'tunnel'
 DATABASETest = 'ts'
 
 

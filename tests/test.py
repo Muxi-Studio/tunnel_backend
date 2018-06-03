@@ -77,7 +77,7 @@ class BasicTestCase(unittest.TestCase):
                 "sent_address": "17362990052@163.com"
             }),
             content_type='application/json')
-        self.assertTrue(response.status_code == 200)
+        self.assertTrue(response.status_code == 201)
 
     # ----------API FILE NAME:api_1_0/__init__.py-------------------
 
