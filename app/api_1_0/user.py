@@ -13,9 +13,9 @@ def message():
 
     sent_time = sent_time_try[0:10]
 
-    message = Message(content=sent_content,
+    message = Message(content=sent_content + '\n' + u'华大桂声伴你同行'.encode("utf8"),
                     way=2,
-                    name=sent_name,
+                    name=u'来自一直惦记着你的'.encode("utf8") + sent_name,
                     time=sent_time,
                     address=sent_address,
                     status=1)
