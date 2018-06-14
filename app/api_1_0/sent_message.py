@@ -33,12 +33,12 @@ mails = Mail(app)
 
 def msg_dict2(to, subject, body, **kwargs):
     msg = Message(
-        subject='来自一直惦记着你的' + subject,
+        subject=u'来自一直惦记着你的'.encode("utf8") + subject,
         sender=app.config['MAIL_DEFAULT_SENDER'],
         recipients=[to]
     )
-    msg.body = body + '\n' + '华大桂声与你同行'
-    msg.html = body + '\n' + '华大桂声与你同行'
+    msg.body = body + '\n' + u'华大桂声伴你同行'.encode("utf8")
+    msg.html = body + '\n' + u'华大桂声伴你同行'.encode("utf8")
     try:
         with app.open_resource("/tmp/" + str(ID) + ".jpg","rb") as fp:
             msg.attach("image.jpg", "image/jpg", fp.read())
