@@ -1,3 +1,4 @@
+# coding: utf-8
 from . import api
 from flask import request, jsonify, session, current_app
 from ..models import Message as ME
@@ -19,25 +20,25 @@ def confirm(token):
         return False
     return True
 
-app.config['MAIL_SERVER'] = 'smtp.qq.com'
-app.config['MAIL_PORT'] = 465
-app.config['MAIL_USE_TLS'] = False
-app.config['MAIL_USE_SSL'] = True
-app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+# app.config['MAIL_SERVER'] = 'smtp.qq.com'
+# app.config['MAIL_PORT'] = 465
+# app.config['MAIL_USE_TLS'] = False
+# app.config['MAIL_USE_SSL'] = True
+# app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+# app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+
+app.config.from_object(config['production'])
 
 mails = Mail(app)
 
 def msg_dict2(to, subject, body, **kwargs):
     msg = Message(
-        subject='come from ' + subject,
+        subject='来自一直惦记着你的' + subject,
         sender=app.config['MAIL_DEFAULT_SENDER'],
         recipients=[to]
     )
-    msg.body = body
-    msg.html = body
-    print "/tmp/" + str(ID) + ".jpg"
-    print "/tmp/" + str(ID) + ".wav"
+    msg.body = body + '\n' + '华大桂声与你同行'
+    msg.html = body + '\n' + '华大桂声与你同行'
     try:
         with app.open_resource("/tmp/" + str(ID) + ".jpg","rb") as fp:
             msg.attach("image.jpg", "image/jpg", fp.read())
