@@ -1,4 +1,4 @@
-# coding: utf-8
+#encoding: utf-8
 from . import api
 from flask import request, jsonify, session, current_app
 from ..models import Message as ME
@@ -33,12 +33,12 @@ mails = Mail(app)
 
 def msg_dict2(to, subject, body, **kwargs):
     msg = Message(
-        subject=u'来自一直惦记着你的'.encode("utf8") + subject,
+        subject=subject,
         sender=app.config['MAIL_DEFAULT_SENDER'],
         recipients=[to]
     )
-    msg.body = body + '\n' + u'华大桂声伴你同行'.encode("utf8")
-    msg.html = body + '\n' + u'华大桂声伴你同行'.encode("utf8")
+    msg.body = body
+    msg.html = body
     try:
         with app.open_resource("/tmp/" + str(ID) + ".jpg","rb") as fp:
             msg.attach("image.jpg", "image/jpg", fp.read())
