@@ -18,7 +18,7 @@ class Config:
 
 
     MAIL_SEREVER = 'smtp.qq.com'
-    MAIL_PORT = 25
+    MAIL_PORT = 465
     MAIL_USE_SSL = False
     MAIL_USE_TLS = False
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
