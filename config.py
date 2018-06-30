@@ -8,8 +8,6 @@ PASSWORD = os.environ.get('MYSQLPASSWORD')
 HOST = os.environ.get('MYSQLHOST')
 PORT = '3306'
 DATABASE = 'tunnel'
-DATABASETest = 'ts'
-
 
 class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY') or 'hard ot guess string'
@@ -20,12 +18,12 @@ class Config:
 
 
     MAIL_SEREVER = 'smtp.qq.com'
-    MAIL_PORT = 465
-    MAIL_USE_SSL = True
+    MAIL_PORT = 25
+    MAIL_USE_SSL = False
     MAIL_USE_TLS = False
     MAIL_USERNAME = os.environ.get('MAIL_USERNAME')
     MAIL_PASSWORD = os.environ.get('MAIL_PASSWORD')
-
+    MAIL_DEFAULT_SENDER = os.environ.get('MAIL_USERNAME')
 
     @staticmethod
     def init_app(app):
@@ -56,6 +54,6 @@ class ProductionConfig(Config):
 config={
     'developments': DevelopmentConfig,
     'testing': TestingConfig,
-    'production':ProductionConfig,
-    'default':DevelopmentConfig
+    'production': ProductionConfig,
+    'default': DevelopmentConfig
 }

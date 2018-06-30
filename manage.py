@@ -10,13 +10,10 @@ manager = Manager(app)
 
 '''
 init 初始化一个数据库
-migrage  迁移文件
-update  生成新的表
+migrate  迁移文件
+upgrade  生成新的表
 '''
 
-
-print os.environ.get('MYSQLUSER')
-print os.environ.get('MYSQLHOST')
 
 #使用flask_migrate必须绑定app和db
 migrate = Migrate(app, db)

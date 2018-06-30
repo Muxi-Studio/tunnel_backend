@@ -1,13 +1,12 @@
-#encoding: utf-8
+# encoding: utf-8
 from . import api
-from flask import request, jsonify, session, current_app
+from flask import request, jsonify, current_app
 from ..models import Message as ME
 from flask_mail import Message, Mail
 from .. import app, db
 import os
 from config import config
 from itsdangerous import TimedJSONWebSignatureSerializer as Serializer
-
 
 
 def confirm(token):
@@ -20,16 +19,18 @@ def confirm(token):
         return False
     return True
 
-# app.config['MAIL_SERVER'] = 'smtp.qq.com'
-# app.config['MAIL_PORT'] = 465
-# app.config['MAIL_USE_TLS'] = False
-# app.config['MAIL_USE_SSL'] = True
-# app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
-# app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
 
-app.config.from_object(config['production'])
+app.config['MAIL_SERVER'] = 'smtp.qq.com'
+app.config['MAIL_PORT'] = 25
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = False
+app.config['MAIL_DEFAULT_SENDER'] = app.config['MAIL_USERNAME'] = os.environ.get('MAIL_USERNAME')
+app.config['MAIL_PASSWORD'] = os.environ.get('MAIL_PASSWORD')
+
+#app.config.from_object(config['production'])
 
 mails = Mail(app)
+
 
 def msg_dict2(to, subject, body, **kwargs):
     msg = Message(
@@ -39,14 +40,15 @@ def msg_dict2(to, subject, body, **kwargs):
     )
     msg.body = body
     msg.html = body
-    try:
+    '''try:
         with app.open_resource("/tmp/" + str(ID) + ".jpg","rb") as fp:
             msg.attach("image.jpg", "image/jpg", fp.read())
         with app.open_resource("/tmp/" + str(ID) + ".wav","rb") as fp:
             msg.attach("voice.wav", "mp3/wav", fp.read())
     except:
-        pass
+        pass'''
     return msg.__dict__
+
 
 def send_async_email(msg_dict):
     with app.app_context():
@@ -58,8 +60,6 @@ def send_async_email(msg_dict):
 @api.route('/sent/<int:id>/', methods=['POST'])
 def sent(id):
     token = request.headers['token']
-    #token1 = session.get('token')
-    #if token == token1:
     global ID
     ID = id
     if confirm(token):
@@ -71,7 +71,7 @@ def sent(id):
                 db.session.add(mess)
                 db.session.commit()
                 return jsonify({}), 200
-            except Exception,e:
+            except Exception, e:
                 print(e)
                 mess.status = 3
                 db.session.add(mess)

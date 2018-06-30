@@ -24,6 +24,7 @@ class Message(db.Model):
     name = db.Column(db.String(20), nullable=True)
     status = db.Column(db.Integer, nullable=False)
     address = db.Column(db.String(40), nullable=False)
+    writetime = db.Column(db.String(15), nullable=False)
 
     def __repr__(self):
         return '<content %r>' % self.content
